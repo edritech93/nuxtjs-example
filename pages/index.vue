@@ -2,6 +2,10 @@
 import { object, string, type InferType } from "yup";
 import type { FormSubmitEvent } from "#ui/types";
 
+definePageMeta({
+  layout: false,
+});
+
 const schema = object({
   email: string().email("Invalid email").required("Required"),
   password: string()
