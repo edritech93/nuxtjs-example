@@ -5,7 +5,7 @@ import type { FormSubmitEvent } from "#ui/types";
 const schema = object({
   email: string().email("Invalid email").required("Required"),
   password: string()
-    .min(8, "Must be at least 8 characters")
+    .min(6, "Must be at least 6 characters")
     .required("Required"),
 });
 
@@ -15,14 +15,17 @@ const state = reactive({
   email: undefined,
   password: undefined,
 });
+const loading = ref(false);
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
+  loading.value = true;
   const config = useRuntimeConfig();
   const response = await $fetch(`${config.public.baseUrl}/posts`, {
     method: "POST",
     body: event.data,
   });
   console.log(response);
+  loading.value = false;
   navigateTo("/dashboard");
 }
 </script>
@@ -44,7 +47,9 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           <UInput v-model="state.password" type="password" />
         </UFormGroup>
 
-        <UButton type="submit"> Submit </UButton>
+        <UButton type="submit" :loading="loading" :disabled="loading">
+          Login
+        </UButton>
       </UForm>
     </UCard>
   </div>
