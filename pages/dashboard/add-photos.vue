@@ -50,43 +50,53 @@ function onChangeDate(value: Date) {
 </script>
 
 <template>
-  <div class="flex flex-1 p-4">
-    <UCard class="flex flex-1 p-4">
-      <UForm
-        :schema="schema"
-        :state="state"
-        class="space-y-4"
-        @submit="onSubmit"
-      >
-        <UFormGroup label="Price" name="price">
-          <UInput v-model="state.price" />
-        </UFormGroup>
+  <UCard class="flex flex-1 flex-col p-4 m-4">
+    <UForm
+      :schema="schema"
+      :state="state"
+      class="space-y-4 flex flex-col flex-1"
+      @submit="onSubmit"
+    >
+      <div class="flex flex-1 gap-4">
+        <div class="flex flex-1 flex-col">
+          <UFormGroup label="Price" name="price" class="mb-4">
+            <UInput v-model="state.price" type="number" />
+          </UFormGroup>
 
-        <UFormGroup label="Location" name="location">
-          <UInput v-model="state.location" type="location" />
-        </UFormGroup>
+          <UFormGroup label="Location" name="location">
+            <UInput v-model="state.location" />
+          </UFormGroup>
+        </div>
+        <div class="flex flex-1 flex-col">
+          <UFormGroup label="Date" name="date" class="mb-4">
+            <!-- <UInput v-model="state.price" /> -->
+            <SelectDatePicker />
+          </UFormGroup>
+          <UFormGroup label="Image" name="image" class="mb-4">
+            <UInput type="file" size="sm" icon="i-heroicons-folder" />
+          </UFormGroup>
+        </div>
+      </div>
 
-        <SelectDatePicker />
+      <UFormGroup label="Description" name="description">
+        <UTextarea v-model="state.description" />
+      </UFormGroup>
+
+      <div class="self-end">
+        <UButton
+          type="submit"
+          :loading="loading"
+          :disabled="loading"
+          class="mr-4"
+          variant="outline"
+        >
+          Add Photo
+        </UButton>
 
         <UButton type="submit" :loading="loading" :disabled="loading">
           Save Change
         </UButton>
-      </UForm>
-      <!-- <UPopover :popper="{ placement: 'bottom-start' }">
-        <UButton
-          icon="i-heroicons-calendar-days-20-solid"
-          :label="format(date, 'd MMM, yyy')"
-        />
-
-        <template #panel="{ close }">
-          <DatePicker
-            :model-value="null"
-            is-required
-            @close="close"
-            @update:model-value="onChangeDate"
-          />
-        </template>
-      </UPopover> -->
-    </UCard>
-  </div>
+      </div>
+    </UForm>
+  </UCard>
 </template>
