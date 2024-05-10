@@ -2,4 +2,20 @@
 export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@nuxtjs/tailwindcss"],
   devtools: { enabled: true },
+  app: {
+    head: {
+      title: "Photo Web",
+      meta: [
+        {
+          name: "description",
+          content: "Upload your photos here",
+        },
+      ],
+    },
+  },
+  runtimeConfig: {
+    public: {
+      baseUrl: "",
+    },
+  },
 });

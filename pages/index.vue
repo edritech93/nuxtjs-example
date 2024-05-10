@@ -2,8 +2,6 @@
 import { object, string, type InferType } from "yup";
 import type { FormSubmitEvent } from "#ui/types";
 
-const { login } = useAuth();
-
 const schema = object({
   email: string().email("Invalid email").required("Required"),
   password: string()
@@ -19,14 +17,13 @@ const state = reactive({
 });
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  // Do something with event.data
-  // console.log(event.data);
-  // const response = await axios.get(
-  //   "https://jsonplaceholder.typicode.com/todos/1"
-  // );
-  // console.log(response);
-  // navigateTo("/dashboard");
-  login();
+  const config = useRuntimeConfig();
+  const response = await $fetch(`${config.public.baseUrl}/posts`, {
+    method: "POST",
+    body: event.data,
+  });
+  console.log(response);
+  navigateTo("/dashboard");
 }
 </script>
 
