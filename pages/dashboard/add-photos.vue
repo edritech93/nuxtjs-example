@@ -66,14 +66,7 @@ function onChangeDate(value: Date) {
           <UInput v-model="state.location" type="location" />
         </UFormGroup>
 
-        <template #panel="{ close }">
-          <DatePicker
-            :model-value="null"
-            is-required
-            @close="close"
-            @update:model-value="onChangeDate"
-          />
-        </template>
+        <SelectDatePicker />
 
         <UButton type="submit" :loading="loading" :disabled="loading">
           Save Change
