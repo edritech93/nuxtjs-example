@@ -7,7 +7,9 @@ definePageMeta({
 
 const date = ref(new Date());
 
-function onChangeDate() {}
+function onChangeDate(value: Date) {
+  date.value = value;
+}
 </script>
 
 <template>
@@ -18,7 +20,12 @@ function onChangeDate() {}
     />
 
     <template #panel="{ close }">
-      <DatePicker :model-value="null" is-required @close="close" />
+      <DatePicker
+        :model-value="null"
+        is-required
+        @close="close"
+        @update:model-value="onChangeDate"
+      />
     </template>
   </UPopover>
 </template>
