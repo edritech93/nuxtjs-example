@@ -1,5 +1,5 @@
 function isAuthenticated(): boolean {
-  return false;
+  return true;
 }
 // ---cut---
 export default defineNuxtRouteMiddleware((to, from) => {
