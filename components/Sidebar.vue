@@ -8,9 +8,5 @@
         <ItemSideBar icon="icon/active-white-24.png" name="Profile" />
       </NuxtLink>
     </div>
-
-    <NuxtLink to="/sign-in">
-      <h1 class="bg-red-500">Logout</h1>
-    </NuxtLink>
   </div>
 </template>
