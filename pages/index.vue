@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { object, string, type InferType } from "yup";
 import type { FormSubmitEvent } from "#ui/types";
+import type { LoginResponseType } from "~/types/LoginType";
 
 definePageMeta({
   layout: false,
@@ -20,17 +21,28 @@ const state = reactive({
   password: undefined,
 });
 const loading = ref(false);
+const toast = useToast();
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  loading.value = true;
-  const config = useRuntimeConfig();
-  const response = await $fetch(`${config.public.baseUrl}/posts`, {
-    method: "POST",
-    body: event.data,
-  });
-  console.log(response);
-  loading.value = false;
-  navigateTo("/dashboard");
+  try {
+    loading.value = true;
+    const config = useRuntimeConfig();
+    const response: LoginResponseType = await $fetch(
+      `${config.public.baseUrl}api/user-auth/sign-in`,
+      {
+        method: "POST",
+        body: event.data,
+      }
+    );
+    console.log(response);
+    toast.add({ title: "Success", description: response.message });
+    navigateTo("/dashboard");
+  } catch (error) {
+    console.log(error);
+    toast.add({ title: "Error", description: JSON.stringify(error) });
+  } finally {
+    loading.value = false;
+  }
 }
 </script>
 
