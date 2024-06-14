@@ -10,6 +10,10 @@ useSeoMeta({
   title: "Login",
 });
 
+onMounted(() => {
+  localStorage.removeItem("accessToken");
+});
+
 const schema = object({
   email: string().email("Invalid email").required("Required"),
   password: string()
