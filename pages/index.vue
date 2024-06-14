@@ -53,26 +53,37 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <div class="flex flex-1 flex-col min-h-svh items-center justify-center">
-    <UCard class="w-96 self-center">
-      <UForm
-        :schema="schema"
-        :state="state"
-        class="space-y-4"
-        @submit="onSubmit"
-      >
-        <UFormGroup label="Email" name="email">
-          <UInput v-model="state.email" />
-        </UFormGroup>
+  <main class="flex">
+    <div class="flex flex-1 flex-col bg-blue-600 justify-center px-8">
+      <h1 class="text-4xl font-semibold">Find your photo in *Foto*!</h1>
+    </div>
+    <div class="w-96 min-h-screen p-4 flex flex-col">
+      <div class="flex flex-1" />
+      <div class="flex flex-1 flex-col">
+        <h1 class="text-center text-2xl mb-4">Sign In</h1>
+        <p class="text-center mb-8 text-base">
+          Login with your registered account
+        </p>
+        <UForm
+          :schema="schema"
+          :state="state"
+          class="space-y-4"
+          @submit="onSubmit"
+        >
+          <UFormGroup label="Email" name="email">
+            <UInput v-model="state.email" />
+          </UFormGroup>
 
-        <UFormGroup label="Password" name="password">
-          <UInput v-model="state.password" type="password" />
-        </UFormGroup>
+          <UFormGroup label="Password" name="password">
+            <UInput v-model="state.password" type="password" />
+          </UFormGroup>
 
-        <UButton type="submit" :loading="loading" :disabled="loading">
-          Login
-        </UButton>
-      </UForm>
-    </UCard>
-  </div>
+          <UButton type="submit" :loading="loading" :disabled="loading">
+            Sign In
+          </UButton>
+        </UForm>
+      </div>
+      <div class="flex flex-1" />
+    </div>
+  </main>
 </template>
