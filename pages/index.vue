@@ -34,11 +34,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         body: event.data,
       }
     );
-    console.log(response);
+    localStorage.setItem("accessToken", response.accessToken);
     toast.add({ title: "Success", description: response.message });
     navigateTo("/dashboard");
   } catch (error) {
-    console.log(error);
     toast.add({ title: "Error", description: JSON.stringify(error) });
   } finally {
     loading.value = false;

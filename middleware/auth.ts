@@ -1,10 +1,10 @@
-function isAuthenticated(): boolean {
-  return true;
-}
-// ---cut---
 export default defineNuxtRouteMiddleware((to, from) => {
-  // isAuthenticated() is an example method verifying if a user is authenticated
-  if (isAuthenticated() === false) {
-    return navigateTo("/");
-  }
+  // skip middleware on server (first middleware execution)
+  if (import.meta.server) return;
+
+  // now we are on the client side (second middleware execution)
+  // we have access to localStorage
+  if (import.meta.client)
+    if (localStorage.getItem("accessToken")) return;
+    else return navigateTo("/");
 });
