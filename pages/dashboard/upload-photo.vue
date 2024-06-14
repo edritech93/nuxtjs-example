@@ -5,7 +5,7 @@ import { object, string, type InferType } from "yup";
 import type { FormSubmitEvent } from "#ui/types";
 
 definePageMeta({
-  layout: false,
+  middleware: "auth",
 });
 
 const schema = object({
@@ -37,10 +37,6 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   // loading.value = false;
   // navigateTo("/dashboard");
 }
-
-definePageMeta({
-  middleware: "auth",
-});
 
 const date = ref(new Date());
 

@@ -78,7 +78,12 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             <UInput v-model="state.password" type="password" />
           </UFormGroup>
 
-          <UButton type="submit" :loading="loading" :disabled="loading">
+          <UButton
+            type="submit"
+            :loading="loading"
+            :disabled="loading"
+            class="w-full justify-center"
+          >
             Sign In
           </UButton>
         </UForm>
