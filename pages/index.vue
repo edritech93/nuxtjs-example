@@ -6,6 +6,9 @@ import type { LoginResponseType } from "~/types/LoginType";
 definePageMeta({
   layout: false,
 });
+useSeoMeta({
+  title: "Login",
+});
 
 const schema = object({
   email: string().email("Invalid email").required("Required"),

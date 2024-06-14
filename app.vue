@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+useSeoMeta({
+  titleTemplate: "%s | Photo App",
+});
+</script>
+
 <template>
   <div>
     <NuxtLoadingIndicator />
