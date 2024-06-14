@@ -6,5 +6,5 @@ export default defineNuxtRouteMiddleware((to, from) => {
   // we have access to localStorage
   if (import.meta.client)
     if (localStorage.getItem("accessToken")) return;
-    else return navigateTo("/");
+    else return navigateTo("/sign-in");
 });
