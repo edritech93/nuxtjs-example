@@ -7,6 +7,9 @@ import type { FormSubmitEvent } from "#ui/types";
 definePageMeta({
   middleware: "auth",
 });
+useSeoMeta({
+  title: "Upload",
+});
 
 const schema = object({
   email: string().email("Invalid email").required("Required"),

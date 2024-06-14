@@ -8,5 +8,8 @@ useSeoMeta({
 </script>
 
 <template>
-  <EmptyPhoto />
+  <main class="flex flex-1 flex-col p-4">
+    <SearchNav />
+    <EmptyPhoto />
+  </main>
 </template>
