@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { format } from "date-fns";
-
 import { object, string, type InferType } from "yup";
 import type { FormSubmitEvent } from "#ui/types";
 
 definePageMeta({
   middleware: "auth",
+  layout: "side-nav",
 });
 useSeoMeta({
-  title: "Upload",
+  title: "Upload Photo",
 });
 
 const schema = object({

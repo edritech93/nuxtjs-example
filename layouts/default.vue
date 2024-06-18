@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-1 flex-row">
-    <Sidebar />
+    <SideBar />
     <slot />
   </div>
 </template>
