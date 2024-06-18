@@ -20,6 +20,8 @@ onMounted(() => {
 });
 
 function _loadData() {
+  const a = [];
+  a.length;
   loading.value = true;
   API.singleRequest(API.getAllPhotoList())
     .then((response: AxiosResponse) => {
@@ -34,12 +36,14 @@ function _loadData() {
 
 <template>
   <main class="flex flex-1 flex-col p-4">
-    <!-- <SearchNav />
-    <ItemPhoto />
-    <EmptyPhoto /> -->
-
-    <div v-for="photo in dataPhoto">
-      <ItemPhoto :item="photo" />
+    <SearchNav />
+    <div v-if="dataPhoto.length > 0" class="flex flex-1">
+      <div v-for="photo in dataPhoto" class="flex flex-1">
+        <ItemPhoto :item="photo" />
+      </div>
+    </div>
+    <div v-else class="flex flex-1">
+      <EmptyPhoto />
     </div>
   </main>
 </template>
