@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between h-[40px] items-center">
+  <div class="flex justify-between h-[40px] items-center mb-4">
     <UInput
       color="white"
       variant="outline"
