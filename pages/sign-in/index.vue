@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { object, string, type InferType } from "yup";
 import type { FormSubmitEvent } from "#ui/types";
-import type { LoginResponseType } from "~/types/LoginType";
+import { API } from "~/libs/Api";
+import type { AxiosResponse } from "axios";
+import type { ShowAlertType } from "~/types/ShowAlertType";
+import type { SignInResponseType } from "~/types/SignInType";
+import { Helper } from "~/libs/Helper";
 
 definePageMeta({
   layout: false,
@@ -11,7 +15,8 @@ useSeoMeta({
 });
 
 onMounted(() => {
-  localStorage.removeItem("accessToken");
+  Helper.removeToken();
+  Helper.removeRefreshToken();
 });
 
 const schema = object({
@@ -31,24 +36,18 @@ const loading = ref(false);
 const toast = useToast();
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  try {
-    loading.value = true;
-    const config = useRuntimeConfig();
-    const response: LoginResponseType = await $fetch(
-      `${config.public.baseUrl}api/user-auth/sign-in`,
-      {
-        method: "POST",
-        body: event.data,
-      }
-    );
-    localStorage.setItem("accessToken", response.accessToken);
-    toast.add({ title: "Success", description: response.message });
-    navigateTo("/");
-  } catch (error) {
-    toast.add({ title: "Error", description: JSON.stringify(error) });
-  } finally {
-    loading.value = false;
-  }
+  loading.value = true;
+  API.singleRequest(API.signInApp(event.data))
+    .then((response: AxiosResponse) => {
+      const objRes: SignInResponseType = response.data;
+      Helper.setToken(objRes.accessToken);
+      Helper.setRefreshToken(objRes.refreshToken);
+      navigateTo("/");
+    })
+    .catch((error: ShowAlertType) => toast.add(error as any))
+    .finally(() => {
+      loading.value = false;
+    });
 }
 </script>
 

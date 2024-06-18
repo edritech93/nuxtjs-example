@@ -225,6 +225,7 @@ function getError(error: any): ShowAlertType {
     description: message,
     status: status,
     data: data,
+    color: "red",
   };
 }
 
