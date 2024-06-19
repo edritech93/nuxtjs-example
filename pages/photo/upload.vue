@@ -11,10 +11,8 @@ useSeoMeta({
 });
 
 const schema = object({
-  email: string().email("Invalid email").required("Required"),
-  password: string()
-    .min(6, "Must be at least 6 characters")
-    .required("Required"),
+  price: string().required("Required"),
+  location: string().required("Required"),
 });
 
 type Schema = InferType<typeof schema>;
@@ -27,6 +25,7 @@ const state = reactive({
   tag: [],
 });
 const loading = ref(false);
+const toast = useToast();
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   // loading.value = true;
@@ -48,53 +47,48 @@ function onChangeDate(value: Date) {
 </script>
 
 <template>
-  <UCard class="flex flex-1 flex-col p-4 m-4">
-    <UForm
-      :schema="schema"
-      :state="state"
-      class="space-y-4 flex flex-col flex-1"
-      @submit="onSubmit"
-    >
-      <div class="flex flex-1 gap-4">
-        <div class="flex flex-1 flex-col">
-          <UFormGroup label="Price" name="price" class="mb-4">
-            <UInput v-model="state.price" type="number" />
-          </UFormGroup>
+  <main class="flex">
+    <AuthLeftView />
+    <div class="w-96 min-h-screen p-4 flex flex-col">
+      <UForm
+        :schema="schema"
+        :state="state"
+        class="space-y-4 flex flex-col flex-1"
+        @submit="onSubmit"
+      >
+        <UFormGroup label="Price" name="price">
+          <UInput v-model="state.price" type="number" />
+        </UFormGroup>
+        <UFormGroup label="Location" name="location">
+          <UInput v-model="state.location" />
+        </UFormGroup>
+        <UFormGroup label="Date" name="date">
+          <!-- <UInput v-model="state.price" /> -->
+          <SelectDatePicker />
+        </UFormGroup>
+        <UFormGroup label="Description" name="description">
+          <UTextarea v-model="state.description" />
+        </UFormGroup>
+        <UFormGroup label="Image" name="image">
+          <UInput type="file" size="sm" icon="i-heroicons-folder" />
+        </UFormGroup>
 
-          <UFormGroup label="Location" name="location">
-            <UInput v-model="state.location" />
-          </UFormGroup>
+        <div class="self-end">
+          <UButton
+            type="submit"
+            :loading="loading"
+            :disabled="loading"
+            class="mr-4"
+            variant="outline"
+          >
+            Add Photo
+          </UButton>
+
+          <UButton type="submit" :loading="loading" :disabled="loading">
+            Submit
+          </UButton>
         </div>
-        <div class="flex flex-1 flex-col">
-          <UFormGroup label="Date" name="date" class="mb-4">
-            <!-- <UInput v-model="state.price" /> -->
-            <SelectDatePicker />
-          </UFormGroup>
-          <UFormGroup label="Image" name="image" class="mb-4">
-            <UInput type="file" size="sm" icon="i-heroicons-folder" />
-          </UFormGroup>
-        </div>
-      </div>
-
-      <UFormGroup label="Description" name="description">
-        <UTextarea v-model="state.description" />
-      </UFormGroup>
-
-      <div class="self-end">
-        <UButton
-          type="submit"
-          :loading="loading"
-          :disabled="loading"
-          class="mr-4"
-          variant="outline"
-        >
-          Add Photo
-        </UButton>
-
-        <UButton type="submit" :loading="loading" :disabled="loading">
-          Save Change
-        </UButton>
-      </div>
-    </UForm>
-  </UCard>
+      </UForm>
+    </div>
+  </main>
 </template>

@@ -3,12 +3,12 @@
     <div class="flex flex-col flex-1">
       <NuxtLink to="/" class="mb-4">
         <ItemSideBar name="Upload">
-          <SvgUpload color="red" />
+          <SvgUpload color="white" />
         </ItemSideBar>
       </NuxtLink>
       <NuxtLink to="/profile">
         <ItemSideBar name="Profile">
-          <SvgProfile color="red" />
+          <SvgProfile color="white" />
         </ItemSideBar>
       </NuxtLink>
     </div>
