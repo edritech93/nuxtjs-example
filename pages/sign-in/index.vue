@@ -6,12 +6,13 @@ import type { AxiosResponse } from "axios";
 import type { ShowAlertType } from "~/types/ShowAlertType";
 import type { SignInResponseType } from "~/types/SignInType";
 import { Helper } from "~/libs/Helper";
+import { useProfileStore } from "~/store/profile";
 
 definePageMeta({
   layout: false,
 });
 useSeoMeta({
-  title: "Sign Up",
+  title: "Sign In",
 });
 
 onMounted(() => {
@@ -20,10 +21,10 @@ onMounted(() => {
 });
 
 const schema = object({
-  email: string().email("Invalid email").required("Required"),
+  email: string().email("Invalid Email").required("Email is Required"),
   password: string()
-    .min(6, "Must be at least 6 characters")
-    .required("Required"),
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is Required"),
 });
 
 type Schema = InferType<typeof schema>;
@@ -34,6 +35,7 @@ const state = reactive({
 });
 const loading = ref(false);
 const toast = useToast();
+const profile = useProfileStore();
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   loading.value = true;
@@ -42,12 +44,19 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       const objRes: SignInResponseType = response.data;
       Helper.setToken(objRes.accessToken);
       Helper.setRefreshToken(objRes.refreshToken);
+      loadProfile();
       navigateTo("/");
     })
     .catch((error: ShowAlertType) => toast.add(error as any))
     .finally(() => {
       loading.value = false;
     });
+}
+
+function loadProfile() {
+  API.singleRequest(API.getMyProfile())
+    .then((response: AxiosResponse) => profile.change(response.data))
+    .catch((error: ShowAlertType) => toast.add(error as any));
 }
 </script>
 
