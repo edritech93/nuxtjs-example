@@ -20,6 +20,7 @@ type ApiRequest = {
   force?: boolean;
   contentType?: "form-data";
   auth?: AxiosBasicCredentials;
+  otherOptions?: AxiosRequestConfig;
 };
 
 enum ServerEnum {
@@ -56,6 +57,7 @@ export class Api {
       method: request?.method ?? "GET",
       baseURL: baseUrl,
       timeout: request.timeout === 0 ? request.timeout : 1000 * 90, // default is `0` (no timeout)
+      ...request.otherOptions,
     };
     let optHeader = {};
     let token = await Helper.getToken();
@@ -203,6 +205,16 @@ export class Api {
       url: "photo-tag",
       method: "POST",
       data: args,
+    });
+  }
+
+  async getPhoto(args: number) {
+    return this._request({
+      url: `attachment/${args}`,
+      method: "GET",
+      otherOptions: {
+        responseType: "arraybuffer",
+      },
     });
   }
 }

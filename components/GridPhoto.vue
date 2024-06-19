@@ -10,7 +10,7 @@ defineProps<{
   >
     <div v-for="photo in dataPhoto">
       <div class="max-w-[150px] border-yellow-400 border-2 bg-gray-400 rounded">
-        <NuxtImg src="https://picsum.photos/200" width="150" height="150" />
+        <ItemPhoto :item="photo" />
       </div>
     </div>
   </div>

@@ -3,7 +3,6 @@ import type { SellPhotoType } from "~/types/SellPhotoType";
 import type { AxiosResponse } from "axios";
 import { API } from "~/libs/Api";
 import type { ShowAlertType } from "~/types/ShowAlertType";
-import ItemPhoto from "~/components/ItemPhoto.vue";
 
 definePageMeta({
   middleware: "auth",
@@ -38,9 +37,7 @@ function _loadData() {
   <main class="flex flex-1 flex-col p-4">
     <SearchNav />
     <div v-if="dataPhoto.length > 0" class="flex flex-1">
-      <div v-for="photo in dataPhoto" class="flex flex-1">
-        <ItemPhoto :item="photo" />
-      </div>
+      <GridPhoto :data-photo="dataPhoto" />
     </div>
     <div v-else class="flex flex-1">
       <EmptyPhoto />
