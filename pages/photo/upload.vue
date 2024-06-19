@@ -26,6 +26,13 @@ const state = reactive({
 });
 const loading = ref(false);
 const toast = useToast();
+const dataPhoto = useState(() => {
+  const arrayTemp = [];
+  for (let i = 0; i < 50; i++) {
+    arrayTemp.push(i);
+  }
+  return arrayTemp;
+});
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   // loading.value = true;
@@ -48,7 +55,7 @@ function onChangeDate(value: Date) {
 
 <template>
   <main class="flex">
-    <AuthLeftView />
+    <GridPhoto :data-photo="dataPhoto" />
     <div class="w-96 min-h-screen p-4 flex flex-col">
       <UForm
         :schema="schema"
