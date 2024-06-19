@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import ImageRemote from "~/components/ImageRemote.vue";
+import { useAppStore } from "~/store/app";
 import { useProfileStore } from "~/store/profile";
 
 definePageMeta({
@@ -8,7 +9,13 @@ definePageMeta({
 useSeoMeta({
   title: "Profile",
 });
-const { profile } = useProfileStore();
+const profileStore = useProfileStore();
+const { profile } = profileStore;
+const appStore = useAppStore();
+function onResetStore() {
+  appStore.$reset();
+  profileStore.$reset();
+}
 </script>
 
 <template>
@@ -19,6 +26,6 @@ const { profile } = useProfileStore();
     />
     <h1 class="text-2xl mb-1">{{ profile?.profile.fullName }}</h1>
     <h1 class="mb-4">{{ profile?.email }}</h1>
-    <UButton to="/sign-in">Logout</UButton>
+    <UButton to="/sign-in" @click.native="onResetStore">Logout</UButton>
   </div>
 </template>
