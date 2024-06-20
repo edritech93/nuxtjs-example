@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { object, string, type InferType } from "yup";
 import type { FormSubmitEvent } from "#ui/types";
+import { usePhotoStore } from "~/store/photo";
+import GridPhotoUpload from "~/components/GridPhotoUpload.vue";
 
 definePageMeta({
   middleware: "auth",
@@ -26,13 +28,7 @@ const state = reactive({
 });
 const loading = ref(false);
 const toast = useToast();
-const dataPhoto = useState(() => {
-  const arrayTemp = [];
-  for (let i = 0; i < 50; i++) {
-    arrayTemp.push(i);
-  }
-  return arrayTemp;
-});
+const { photoUpload } = usePhotoStore();
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   // loading.value = true;
@@ -55,7 +51,7 @@ function onChangeDate(value: Date) {
 
 <template>
   <main class="flex">
-    <GridPhoto :data-photo="dataPhoto" />
+    <GridPhotoUpload :dataPhoto="photoUpload as FileList" />
     <div class="w-96 min-h-screen p-4 flex flex-col">
       <UForm
         :schema="schema"
