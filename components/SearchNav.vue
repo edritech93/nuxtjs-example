@@ -6,6 +6,6 @@
       placeholder="Search..."
       class="min-w-[287px]"
     />
-    <UButton to="/photo/upload">Upload Photo</UButton>
+    <ButtonUploadPhoto />
   </div>
 </template>
