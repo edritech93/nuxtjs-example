@@ -43,10 +43,6 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 }
 
 const date = ref(new Date());
-
-function onChangeDate(value: Date) {
-  date.value = value;
-}
 </script>
 
 <template>
@@ -71,9 +67,6 @@ function onChangeDate(value: Date) {
         </UFormGroup>
         <UFormGroup label="Description" name="description">
           <UTextarea v-model="state.description" />
-        </UFormGroup>
-        <UFormGroup label="Image" name="image">
-          <UInput type="file" size="sm" icon="i-heroicons-folder" />
         </UFormGroup>
 
         <div class="self-end">
